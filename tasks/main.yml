@@ -1,0 +1,13 @@
+---
+- name: Check OpenFace installation status
+  stat:
+    path: "/usr/local/bin/libFaceAnalyser.so"
+    get_md5: no
+    get_checksum: no
+  register: installed_lib
+
+- include: Dependencies.yml
+  when: not installed_lib.stat.exists
+
+- include: BuildInstall.yml
+  when: not installed_lib.stat.exists

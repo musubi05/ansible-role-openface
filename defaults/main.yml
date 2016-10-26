@@ -1,0 +1,8 @@
+---
+# Fork of OpenFace from PLENGoerRobotics is configured for shared libraries
+openface_mirror: "https://github.com/PLENGoerRobotics/OpenFace.git"
+
+openface_download_dest: "{{ ansible_user_dir }}/OpenFace"
+
+# Path to OpenCVConfig.cmake (Use OpenCV as part of ROS by default)
+openface_opencv_dir: "/opt/ros/kinetic/share/OpenCV-3.1.0-dev"

@@ -1,0 +1,27 @@
+---
+- name: OpenFace git repository
+  git:
+    repo: "{{ openface_mirror }}"
+    dest: "{{ openface_download_dest }}"
+    depth: 1
+    update: no
+    accept_hostkey: yes
+
+- name: Set up for out of source build
+  file:
+    path: "{{ openface_download_dest }}/build"
+    state: directory
+    owner: "{{ ansible_user_id }}"
+
+- name: Build
+  command: "{{ item }} chdir={{ openface_download_dest }}/build"
+  with_items:
+  - "cmake -D CMAKE_BUILD_TYPE=RELEASE -D OpenCV_DIR:PATH={{ openface_opencv_dir }} .."
+  - "make"
+
+- name: Install
+  command: "make install chdir={{ openface_download_dest }}/build"
+  become: yes
+  notify:
+    - "finish install"
+    - "clean up"

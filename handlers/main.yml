@@ -1,0 +1,26 @@
+---
+- name: Install dlib shared library
+  command: "mv {{ openface_download_dest }}/build/lib/3rdParty/dlib/libdlib.so /usr/local/bin"
+  become: yes
+  listen: "finish install"
+
+- name: Install dlib header files
+  command: "mv {{ openface_download_dest }}/lib/3rdParty/dlib/include/dlib /usr/local/include"
+  become: yes
+  listen: "finish install"
+
+- name: Export environment variables pointing to installation
+  blockinfile:
+    dest: "$HOME/.bashrc"
+    content: |
+      export OPENFACE_DIR=/usr/local/include/
+      export OPENFACE_LIBDIR=/usr/local/bin/
+      export DLIB_LIBDIR=/usr/local/bin/
+    state: present
+  listen: "finish install"
+
+- name: Delete downloaded sources
+  file:
+    path: "{{ openface_download_dest }}"
+    state: absent
+  listen: "clean up"

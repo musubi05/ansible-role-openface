@@ -211,4 +211,3 @@ galaxy_info:
 
 dependencies:
 - { role: kbrebanov.git }
-- { role: tbb }

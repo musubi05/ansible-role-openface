@@ -13,11 +13,16 @@
     state: directory
     owner: "{{ ansible_user_id }}"
 
-- name: Build
-  command: "{{ item }} chdir={{ openface_download_dest }}/build"
-  with_items:
-  - "cmake -D CMAKE_BUILD_TYPE=RELEASE -D OpenCV_DIR:PATH={{ openface_opencv_dir }} .."
-  - "make"
+- name: CMake
+  shell: "cmake -D CMAKE_BUILD_TYPE=RELEASE -D OpenCV_DIR:PATH={{ openface_opencv_dir }} .."
+  args:
+    chdir: "{{ openface_download_dest }}/build"
+    executable: /bin/bash
+
+- name: Make
+  command: "make"
+  args:
+    chdir: "{{ openface_download_dest }}/build"
 
 - name: Install
   command: "make install chdir={{ openface_download_dest }}/build"

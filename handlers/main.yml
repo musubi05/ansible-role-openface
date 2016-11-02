@@ -2,12 +2,13 @@
 - name: Install dlib shared library
   command: "mv {{ openface_download_dest }}/build/lib/3rdParty/dlib/libdlib.so /usr/local/bin"
   become: yes
-  listen: "finish install"
+  listen: "dlib install"
+
 
 - name: Install dlib header files
   command: "mv {{ openface_download_dest }}/lib/3rdParty/dlib/include/dlib /usr/local/include"
   become: yes
-  listen: "finish install"
+  listen: "dlib install"
 
 - name: Export environment variables pointing to installation
   blockinfile:
@@ -16,11 +17,12 @@
       export OPENFACE_DIR=/usr/local/include/
       export OPENFACE_LIBDIR=/usr/local/bin/
       export DLIB_LIBDIR=/usr/local/bin/
+    marker: "#{mark} OpenFace install location"
     state: present
-  listen: "finish install"
+  listen: "openface vars"
 
 - name: Delete downloaded sources
   file:
     path: "{{ openface_download_dest }}"
     state: absent
-  listen: "clean up"
+  listen: "delete openface"

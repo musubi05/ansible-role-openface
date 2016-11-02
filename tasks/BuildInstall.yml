@@ -28,5 +28,6 @@
   command: "make install chdir={{ openface_download_dest }}/build"
   become: yes
   notify:
-    - "finish install"
-    - "clean up"
+    - "dlib install"
+    - "openface vars"
+    - "delete openface"

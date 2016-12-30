@@ -20,14 +20,15 @@
     executable: /bin/bash
 
 - name: Make
-  command: "make"
-  args:
+  make:
     chdir: "{{ openface_download_dest }}/build"
 
 - name: Install
-  command: "make install chdir={{ openface_download_dest }}/build"
+  make:
+    chdir: "{{ openface_download_dest }}/build"
+    target: install
   become: yes
   notify:
     - "dlib install"
     - "openface vars"
-    - "delete openface"
+    - "delete openface source"

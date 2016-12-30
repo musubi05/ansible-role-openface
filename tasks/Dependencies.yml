@@ -11,20 +11,8 @@
     state: present
   become: yes
 
-#-name: TBB
-#  apt:
-#    pkg: libtbb2
-#    state: present
-#  become: yes
-
 - name: TBB development packages
   apt:
     pkg: libtbb-dev
-    state: present
-  become: yes
-
-- name: OpenCV
-  apt:
-    pkg: "ros-{{ ros_release }}-perception"
     state: present
   become: yes

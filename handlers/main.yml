@@ -4,7 +4,6 @@
   become: yes
   listen: "dlib install"
 
-
 - name: Install dlib header files
   command: "mv {{ openface_download_dest }}/lib/3rdParty/dlib/include/dlib /usr/local/include"
   become: yes
@@ -17,7 +16,7 @@
       export OPENFACE_DIR=/usr/local/include/
       export OPENFACE_LIBDIR=/usr/local/bin/
       export DLIB_LIBDIR=/usr/local/bin/
-    marker: "#{mark} OpenFace install location"
+    marker: "# {mark} OpenFace install location"
     state: present
   listen: "openface vars"
 
@@ -25,4 +24,4 @@
   file:
     path: "{{ openface_download_dest }}"
     state: absent
-  listen: "delete openface"
+  listen: "delete openface source"

@@ -16,7 +16,10 @@ A description of the settable variables for this role should go here, including 
 Dependencies
 ------------
 
-OpenCV installation, stand-alone or part of a ROS installation for example.
+OpenCV Role, stand-alone or part of a ROS installation for example.
+Please add a role for OpenCV from https://github.com/musubi05/ansible-opencv.
+(After cloning this role, please change role name from "ansible-opencv" to "opencv".)
+
 
 Example Playbook
 ----------------
